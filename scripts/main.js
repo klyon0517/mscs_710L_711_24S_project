@@ -34,23 +34,8 @@ window.addEventListener("load", function() {
 
 function getMetrics() {
   
-  /* let display = {
-    "plugin" : "complete",
-    "json" : ""
-  }; */
-  
-  /* let options = {
-    method: 'POST',
-    headers: {
-      'Content-Type':
-        'application/json'
-    },
-    body: JSON.stringify(display)
-  }; */
-  
   // fetch("http://localhost/phpsysinfo/xml.php?plugin=complete&json")
-  fetch("http://localhost/api/get_phpsysinfo_json.php")
-  // fetch("../phpsysinfo/xml.php", options)
+  fetch("http://3.135.19.80/phpsysinfo/xml.php?plugin=complete&json")
   .then(x => x.text())
   .then(y => document.getElementById("metrics").innerHTML = y);
   // Once response is received run another fetch
