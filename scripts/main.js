@@ -48,7 +48,8 @@ function getMetrics() {
     body: JSON.stringify(display)
   }; */
   
-  fetch("http://localhost/phpsysinfo/xml.php?plugin=complete&json")
+  // fetch("http://localhost/phpsysinfo/xml.php?plugin=complete&json")
+  fetch("http://localhost/api/get_phpsysinfo_json.php")
   // fetch("../phpsysinfo/xml.php", options)
   .then(x => x.text())
   .then(y => document.getElementById("metrics").innerHTML = y);

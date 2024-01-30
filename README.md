@@ -17,7 +17,7 @@ Installation:
     - Apache "htdocs"
     - Nginx "?"
   - import sql file 
-  - view via localhost
+  - view website at [Project](http://3.135.19.80/)
     
 Included Dependencies:
   - Bootstrap
