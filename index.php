@@ -10,12 +10,6 @@
 
 -->
 
-<?php
-
-  ini_set("error_log", "logs/php_error.log");
-	
-?>
-
 <!DOCTYPE html>
 <html>
 	<head>

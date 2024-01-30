@@ -12,7 +12,10 @@
 
 window.addEventListener("load", function() {
   
-  
+  // Start a time date when page loads
+  // run script every 15 secons for first hour
+  // then less and less as time goes on
+  // setInterval / clearInterval
 
 });
 
@@ -20,8 +23,7 @@ window.addEventListener("load", function() {
 
 /*  getMetrics
 *
-*   Creates a basic user profile and sets the 
-*   travel policy to accepted ("y").
+*   Creates???
 *
 *   parameters:
 *       display -- plugin json
