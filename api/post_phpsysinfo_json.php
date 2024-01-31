@@ -15,7 +15,27 @@
   
   try {
     
+    require 'mariadb/mariadb_connection.php';
+    
     // Insert metrics after they have been retrived
+    // header('Content-Type: application/json');
+    $json = json_decode(file_get_contents("php://input"), true);
+    $hostname = $json['hostname'];
+    $date = date("Y-m-d H:i:s");
+        
+    $stmt = $mariadb_conn->prepare(
+      "INSERT INTO metrics
+        (date,
+        hostname)
+      VALUES
+        (:date,
+        :hostname)");
+    $stmt->bindParam("date", $date, PDO::PARAM_STR);
+    $stmt->bindParam("hostname", $hostname, PDO::PARAM_STR);
+    $stmt->execute();
+    
+    $arr = array("success"=>"yes");
+    echo json_encode($arr);
     
   } catch (PDOException $mariadbErr) {
     

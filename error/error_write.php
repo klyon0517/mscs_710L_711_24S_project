@@ -20,7 +20,21 @@
     // Write the error to the database.            
     require 'mariadb/mariadb_connection.php';
     
-    $stmt = $mariadb_conn->prepare("INSERT INTO error_log (date, error_type, method, file, message, error) VALUES (:date, :error_type, :method, :file, :message, :error)");
+    $stmt = $mariadb_conn->prepare(
+      "INSERT INTO error_log
+        (date,
+        error_type
+        method,
+        file,
+        message,
+        error)
+      VALUES
+        (:date,
+        :error_type,
+        :method,
+        :file,
+        :message,
+        :error)");
     $stmt->bindParam("date", $errDate, PDO::PARAM_STR);
     $stmt->bindParam("error_type", $error_type, PDO::PARAM_STR);
     $stmt->bindParam("method", $method, PDO::PARAM_STR);

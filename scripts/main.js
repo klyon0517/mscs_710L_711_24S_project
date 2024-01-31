@@ -32,13 +32,46 @@ window.addEventListener("load", function() {
 *
 */
 
-function getMetrics() {
+async function getMetrics() {
   
   // fetch("http://localhost/phpsysinfo/xml.php?plugin=complete&json")
-  fetch("http://3.135.19.80/phpsysinfo/xml.php?plugin=complete&json")
-  .then(x => x.text())
-  .then(y => document.getElementById("metrics").innerHTML = y);
+  // fetch("http://3.135.19.80/phpsysinfo/xml.php?plugin=complete&json")
+  // .then(x => x.text())
+  // .then(y => y);
   // Once response is received run another fetch
   // POST with the parsed json to be saved to the DB
   
+  const response = await fetch("http://localhost/phpsysinfo/xml.php?plugin=complete&json");
+  const metrics = await response.json();
+  
+  // console.log(metrics);
+  
+  // const obj = JSON.parse(metrics);
+  
+  let hostname = metrics["Vitals"]["@attributes"].Hostname;
+  document.getElementById("metrics").innerHTML = hostname;
+  
+  console.log(hostname);
+  
+  writeMetrics(hostname);
+  
 };
+
+async function writeMetrics(data) {
+  
+  const options = {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({hostname: data})
+  };
+
+  const response = await fetch("../api/post_phpsysinfo_json.php", options);
+  const jsonResponse = await response.json();
+  
+  // document.getElementById("metrics").innerHTML = jsonResponse.success;
+  
+  console.log(jsonResponse.success);
+    
+}
