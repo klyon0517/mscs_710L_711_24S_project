@@ -49,7 +49,39 @@ async function getMetrics() {
   // const obj = JSON.parse(metrics);
   
   let hostname = metrics["Vitals"]["@attributes"].Hostname;
-  document.getElementById("metrics").innerHTML = hostname;
+  let cpuModel = metrics["Hardware"]["CPU"]["CpuCore"]["@attributes"].Model;
+  let cpuLoad = metrics["Hardware"]["CPU"]["CpuCore"]["@attributes"].Load;
+  let unusedCpuLoad = 100 - cpuLoad;
+  
+  document.getElementById("metrics").innerHTML =
+    "Host: " + hostname +
+    "<br><br>" +
+    "Model: " + cpuModel +
+    "<br><br>" +
+    "Load: " + cpuLoad +
+    "<br><br>" +
+    "Remaining: " + unusedCpuLoad;
+  
+  const ctx = document.getElementById('myChart');
+   
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Load', 'Remaining'],
+      datasets: [{
+        label: 'CPU Load %',
+        data: [cpuLoad, unusedCpuLoad],
+        backgroundColor: [
+          'rgb(54, 162, 235)',
+          'rgb(185, 185, 185)'
+        ],
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
   
   console.log(hostname);
   

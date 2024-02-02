@@ -1,0 +1,8 @@
+Project features:
+
+- need loading icon
+
+- setInterval
+  - refreshing display
+  - saving metrics to DB
+  - fix error when trying to reuse a canvas

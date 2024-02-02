@@ -49,11 +49,15 @@
     </nav>
     <button type="button" class="btn btn-primary" onclick="getMetrics()">Metrics</button>
     <div id="metrics" class="container-lg">Performance?</div>
+    <div style="height: 200px; width: 200px">
+      <canvas id="myChart"></canvas>
+    </div>
 
     
     <!-- Custom Script -->   
 		<script type="text/javascript" src="scripts/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     
   </body>
 </html>
