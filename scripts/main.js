@@ -34,19 +34,9 @@ window.addEventListener("load", function() {
 
 async function getMetrics() {
   
-  // fetch("http://localhost/phpsysinfo/xml.php?plugin=complete&json")
-  // fetch("http://3.135.19.80/phpsysinfo/xml.php?plugin=complete&json")
-  // .then(x => x.text())
-  // .then(y => y);
-  // Once response is received run another fetch
-  // POST with the parsed json to be saved to the DB
-  
+  // const response = await fetch("http://3.135.19.80/phpsysinfo/xml.php?plugin=complete&json");
   const response = await fetch("http://localhost/phpsysinfo/xml.php?plugin=complete&json");
   const metrics = await response.json();
-  
-  // console.log(metrics);
-  
-  // const obj = JSON.parse(metrics);
   
   let hostname = metrics["Vitals"]["@attributes"].Hostname;
   let cpuModel = metrics["Hardware"]["CPU"]["CpuCore"]["@attributes"].Model;
@@ -67,7 +57,10 @@ async function getMetrics() {
   new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: ['Load', 'Remaining'],
+      labels: [
+        'Load',
+        'Remaining'
+      ],
       datasets: [{
         label: 'CPU Load %',
         data: [cpuLoad, unusedCpuLoad],
@@ -83,26 +76,34 @@ async function getMetrics() {
     }
   });
   
-  console.log(hostname);
+  const data = [];
+  data[0] = hostname;
+  data[1] = cpuModel;
+  data[2] = cpuLoad;
   
-  writeMetrics(hostname);
+  writeMetrics(data);
   
 };
 
 async function writeMetrics(data) {
+  
+  let dat0 = data[0];
+  let dat1 = data[1];
+  let dat2 = data[2];
   
   const options = {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({hostname: data})
+    body: encodeURIComponent(JSON.stringify({
+      hostname: dat0,
+      cpuModel: dat1,
+      cpuLoad: dat2}))
   };
 
   const response = await fetch("../api/post_phpsysinfo_json.php", options);
   const jsonResponse = await response.json();
-  
-  // document.getElementById("metrics").innerHTML = jsonResponse.success;
   
   console.log(jsonResponse.success);
     

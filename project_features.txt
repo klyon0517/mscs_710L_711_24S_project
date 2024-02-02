@@ -1,8 +1,25 @@
 Project features:
 
+- public URL
+  - turn off login window
+
 - need loading icon
 
 - setInterval
   - refreshing display
   - saving metrics to DB
   - fix error when trying to reuse a canvas
+
+- Error handling
+  - errors are not be logged in db or file
+  - Since display errors is off, maybe it's not catching them?
+  
+- Write clear / concise installation instructions
+  - including instructions on where to put the "_includes" folder
+  - also importing the sql file
+  - instructions on how to run the tests
+
+- Tests (PHP scripts)
+  - DB connection
+  - File write
+  - DB insert (using sample payload

@@ -15,37 +15,61 @@
   
   try {
     
-    require 'mariadb/mariadb_connection.php';
-    
-    // Insert metrics after they have been retrived
-    // header('Content-Type: application/json');
-    $json = json_decode(file_get_contents("php://input"), true);
+    $json = json_decode(urldecode(file_get_contents("php://input")), true);
     $hostname = $json['hostname'];
+    $cpuModel = $json['cpuModel'];
+    $cpuLoad = $json['cpuLoad'];
     $date = date("Y-m-d H:i:s");
-        
-    $stmt = $mariadb_conn->prepare(
-      "INSERT INTO metrics
-        (date,
-        hostname)
-      VALUES
-        (:date,
-        :hostname)");
-    $stmt->bindParam("date", $date, PDO::PARAM_STR);
-    $stmt->bindParam("hostname", $hostname, PDO::PARAM_STR);
-    $stmt->execute();
     
-    $arr = array("success"=>"yes");
+    try {
+    
+      require 'mariadb/mariadb_connection.php';
+      
+      $stmt = $mariadb_conn->prepare(
+        "INSERT INTO metrics
+          (date,
+          hostname,
+          cpu_model,
+          cpu_load)
+        VALUES
+          (:date,
+          :hostname,
+          :cpu_model,
+          :cpu_load)");
+      $stmt->bindParam("date", $date, PDO::PARAM_STR);
+      $stmt->bindParam("hostname", $hostname, PDO::PARAM_STR);
+      $stmt->bindParam("cpu_model", $cpuModel, PDO::PARAM_STR);
+      $stmt->bindParam("cpu_load", $cpuLoad, PDO::PARAM_STR);
+      $stmt->execute();
+      
+      $mariadb_conn = null;
+      
+    } catch (PDOException $mariadbErr) {
+      
+      $errDate = date("Y-m-d H:i:s");
+      $error_type = "MariaDB";
+      $method = "INSERT";
+      $file = "post_phpsysinfo_json";
+      $message = "Unable to insert system metrics into the databse.";
+      $error = $e->mariadbErr();
+      $file_pointer = "../logs/mariadb_error.log";
+    
+      require '../error/error_write.php';  
+      
+    }
+    
+    $arr = array("success"=>"SUCCESS");
     echo json_encode($arr);
     
-  } catch (PDOException $mariadbErr) {
+  } catch (Exception $e) {
     
     $errDate = date("Y-m-d H:i:s");
-    $error_type = "MariaDB";
-    $method = "INSERT";
+    $error_type = "POST";
+    $method = "file_get_contents";
     $file = "post_phpsysinfo_json";
-    $message = "Unable to insert system metrics into the databse.";
-    $error = $e->mariadbErr();
-    $file_pointer = "../logs/mariadb_error.log";
+    $message = "Failed to parse posted json.";
+    $error = $e->getMessage();
+    $file_pointer = "../logs/php_error.log";
     
     require '../error/error_write.php';  
     
