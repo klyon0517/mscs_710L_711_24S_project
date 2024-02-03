@@ -5,6 +5,10 @@ Project features:
 
 - need loading icon
 
+- Chartjs
+  - change color based on load
+  - green, yellow, orange, red
+
 - setInterval
   - refreshing display
   - saving metrics to DB
