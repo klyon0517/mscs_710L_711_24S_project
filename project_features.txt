@@ -4,14 +4,16 @@ Project features:
   - turn off login window
 
 - need loading icon
+  - don't show the page until data is retrieved
 
 - Chartjs
-  - change color based on load
-  - green, yellow, orange, red
+  √ - change color based on load
+  √ - green, yellow, orange, red
+  - figure out how to close a chart in order to use it again
 
 - setInterval
   - refreshing display
-  - saving metrics to DB
+  √ - saving metrics to DB
   - fix error when trying to reuse a canvas
 
 - Error handling
@@ -24,6 +26,6 @@ Project features:
   - instructions on how to run the tests
 
 - Tests (PHP scripts)
-  - DB connection
-  - File write
+  √ - DB connection
+  √ - File write
   - DB insert (using sample payload

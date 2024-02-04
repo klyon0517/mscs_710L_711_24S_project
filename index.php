@@ -47,64 +47,48 @@
     </nav>
     <div class="container-fluid fs-6 font-monospace text-white text-center bg-primary py-3">
       <div class="row">
-        <div id="hostname" class="col-sm">
-          <i class="fa-solid fa-server"></i>
-          EC2AMAZ-1HQHP5U
+        <div class="col-sm d-flex justify-content-center align-items-center">
+          <i class="fa-solid fa-server me-2"></i>
+          <div id="hostname"></div>
         </div>
-        <div id="distro" class="col-sm">
-          <i class="fa-solid fa-floppy-disk"></i>
-          Microsoft Windows Server 2022 Datacenter
+        <div class="col-sm d-flex justify-content-center align-items-center d-flex justify-content-center align-items-center">
+          <i class="fa-solid fa-floppy-disk me-2"></i>
+          <div id="distro"></div>
         </div>
-        <div id="kernal" class="col-sm">
-          <i class="fa-solid fa-microchip"></i>
-          10.0.20348.2227 (64-bit) x64
+        <div class="col-sm d-flex justify-content-center align-items-center">
+          <i class="fa-solid fa-microchip me-2"></i>
+          <div id="kernal"></div>
         </div>
-        <div id="uptime" class="col-sm">
-          <i class="fa-regular fa-circle-up"></i>
-          5 days 10 hrs 35 mins
+        <div class="col-sm d-flex justify-content-center align-items-center">
+          <i class="fa-regular fa-circle-up me-2"></i>
+          <div id="uptime"></div>
         </div>
       </div>
     </div>
     <div class="container-fluid fs-6 bg-secondary text-white text-center py-3">
       <div class="row">
-        <div id="networkName" class="col-sm">
-          <i class="fa-solid fa-network-wired"></i>
-          AWS PV Network Device #0
+        <div class="col-sm d-flex justify-content-center align-items-center">
+          <i class="fa-solid fa-network-wired me-2"></i>
+          <div id="networkName"></div>
         </div>
-        <div id="networkIpAddress" class="col-sm">
-          <i class="fa-solid fa-ethernet"></i>
-          172.31.25.238
+        <div class="col-sm d-flex justify-content-center align-items-center">
+          <i class="fa-solid fa-ethernet me-2"></i>
+          <div id="networkIpAddress"></div>
         </div>
-        <div id="networkReceived" class="col-sm">
-          <i class="fa-solid fa-arrow-down-short-wide"></i>
-          928.70 MiB
+        <div class="col-sm d-flex justify-content-center align-items-center">
+          <i class="fa-solid fa-arrow-down-short-wide me-2"></i>
+          <div id="networkReceived"></div>
         </div>
-        <div id="networkSent" class="col-sm">
-          <i class="fa-solid fa-arrow-up-from-bracket"></i>
-          438.99 MiB
+        <div class="col-sm d-flex justify-content-center align-items-center">
+          <i class="fa-solid fa-arrow-up-from-bracket me-2"></i>
+          <div id="networkSent"></div>
         </div>
       </div>
     </div>
-    <!-- <div class="container-fluid fs-6 text-center py-3">
-      <div class="row">
-        <div class="col-sm">
-          Current
-        </div>
-        <div class="col-sm">
-          15 mins
-        </div>
-        <div class="col-sm">
-          1 hr
-        </div>
-        <div class="col-sm">
-          1 day
-        </div>
-      </div>
-    </div> -->
     <div class="container-fluid mt-3">
       <div class="row">
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="currentCpuLoad" class="border p-3"></canvas>
+        <div id="currentCpuLoadDiv" class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
+          <!-- <canvas id="currentCpuLoad" class="border p-3"></canvas> -->
         </div>
         <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
           <canvas id="minCpuLoad" class="p-3"></canvas>
@@ -119,8 +103,8 @@
     </div>
     <div class="container-fluid mt-3">
       <div class="row">
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="currentMemoryUsage" class="border p-3"></canvas>
+        <div id="currentMemoryUsageDiv" class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
+          <!-- <canvas id="currentMemoryUsage" class="border p-3"></canvas> -->
         </div>
         <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
           <canvas id="minMemoryUsage" class="p-3"></canvas>
@@ -135,8 +119,8 @@
     </div>
     <div class="container-fluid mt-3">
       <div class="row">
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="currentStorageUsage" class="border p-3"></canvas>
+        <div id="currentStorageUsageDiv" class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
+          <!-- <canvas id="currentStorageUsage" class="border p-3"></canvas> -->
         </div>
         <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
           <canvas id="minStorageUsage" class="p-3"></canvas>
@@ -152,21 +136,6 @@
     <div class="container-fluid text-end fs-6 font-monospace fixed-bottom bg-primary-subtle py-2">
       MSCS_710L_711_24S PROJECT Authors: Kerry Lyon & Rorie Reyes
     </div>
-    
-    
-    <!-- <nav class="navbar fixed-bottom bg-body-tertiary" style="background-color: #e3f2fd;">
-      <div class="container-fluid">
-        <span class="navbar-brand mb-0">
-          MSCS_710L_711_24S PROJECT
-        </span>
-      </div>
-    </nav> --> 
-    
-    
-    <!-- <div style="height: 200px; width: 200px">
-      <canvas id="myChart"></canvas>
-    </div> -->
-
     
     <!-- Custom Script -->   
 		<script type="text/javascript" src="scripts/main.js"></script>

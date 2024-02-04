@@ -17,8 +17,19 @@
     
     $json = json_decode(urldecode(file_get_contents("php://input")), true);
     $hostname = $json['hostname'];
-    $cpuModel = $json['cpuModel'];
-    $cpuLoad = $json['cpuLoad'];
+    $distro = $json['distro'];
+    $kernal = $json['kernal'];
+    $uptime = $json['uptime'];
+    $network_name = $json['network_name'];
+    $ip_address = $json['ip_address'];
+    $received_mb = $json['received_mb'];
+    $sent_mb = $json['sent_mb'];
+    $cpu_load = $json['cpu_load'];
+    $cpu_free = $json['cpu_free'];
+    $memory_load = $json['memory_load'];
+    $memory_free = $json['memory_free'];
+    $storage_used = $json['storage_used'];
+    $storage_free = $json['storage_free'];
     $date = date("Y-m-d H:i:s");
     
     try {
@@ -29,17 +40,50 @@
         "INSERT INTO metrics
           (date,
           hostname,
-          cpu_model,
-          cpu_load)
+          distro,
+          kernal,
+          uptime,
+          network_name,
+          ip_address,
+          received_mb,
+          sent_mb,
+          cpu_load,
+          cpu_free,
+          memory_load,
+          memory_free,
+          storage_used,
+          storage_free)
         VALUES
           (:date,
           :hostname,
-          :cpu_model,
-          :cpu_load)");
+          :distro,
+          :kernal,
+          :uptime,
+          :network_name,
+          :ip_address,
+          :received_mb,
+          :sent_mb,
+          :cpu_load,
+          :cpu_free,
+          :memory_load,
+          :memory_free,
+          :storage_used,
+          :storage_free)");
       $stmt->bindParam("date", $date, PDO::PARAM_STR);
       $stmt->bindParam("hostname", $hostname, PDO::PARAM_STR);
-      $stmt->bindParam("cpu_model", $cpuModel, PDO::PARAM_STR);
-      $stmt->bindParam("cpu_load", $cpuLoad, PDO::PARAM_STR);
+      $stmt->bindParam("distro", $distro, PDO::PARAM_STR);
+      $stmt->bindParam("kernal", $kernal, PDO::PARAM_STR);
+      $stmt->bindParam("uptime", $uptime, PDO::PARAM_STR);
+      $stmt->bindParam("network_name", $network_name, PDO::PARAM_STR);
+      $stmt->bindParam("ip_address", $ip_address, PDO::PARAM_STR);
+      $stmt->bindParam("received_mb", $received_mb, PDO::PARAM_STR);
+      $stmt->bindParam("sent_mb", $sent_mb, PDO::PARAM_STR);
+      $stmt->bindParam("cpu_load", $cpu_load, PDO::PARAM_STR);
+      $stmt->bindParam("cpu_free", $cpu_free, PDO::PARAM_STR);
+      $stmt->bindParam("memory_load", $memory_load, PDO::PARAM_STR);
+      $stmt->bindParam("memory_free", $memory_free, PDO::PARAM_STR);
+      $stmt->bindParam("storage_used", $storage_used, PDO::PARAM_STR);
+      $stmt->bindParam("storage_free", $storage_free, PDO::PARAM_STR);
       $stmt->execute();
       
       $mariadb_conn = null;
