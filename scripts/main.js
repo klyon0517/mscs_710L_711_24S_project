@@ -417,7 +417,8 @@ function chartFormat(div, label, dat1, dat2) {
       }]
     },
     options: {
-      responsive: true
+      responsive: true,
+      maintainAspectRatio: false
     }
   });
   

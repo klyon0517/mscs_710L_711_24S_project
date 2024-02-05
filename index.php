@@ -51,7 +51,7 @@
           <i class="fa-solid fa-server me-2"></i>
           <div id="hostname"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center align-items-center d-flex justify-content-center align-items-center">
+        <div class="col-sm d-flex justify-content-center align-items-center">
           <i class="fa-solid fa-floppy-disk me-2"></i>
           <div id="distro"></div>
         </div>
@@ -87,8 +87,10 @@
     </div>
     <div class="container-fluid mt-3">
       <div class="row">
-        <div id="currentCpuLoadDiv" class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <!-- <canvas id="currentCpuLoad" class="border p-3"></canvas> -->
+        <div class="col-sm d-flex justify-content-center">
+          <div id="currentCpuLoadDiv" style="height: 200px; width: 200px">
+            <!-- <canvas id="currentCpuLoad" class="border p-3"></canvas> -->
+          </div>
         </div>
         <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
           <canvas id="minCpuLoad" class="p-3"></canvas>
@@ -103,8 +105,10 @@
     </div>
     <div class="container-fluid mt-3">
       <div class="row">
-        <div id="currentMemoryUsageDiv" class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <!-- <canvas id="currentMemoryUsage" class="border p-3"></canvas> -->
+        <div class="col-sm d-flex justify-content-center">
+          <div id="currentMemoryUsageDiv" style="height: 200px; width: 200px">
+            <!-- <canvas id="currentMemoryUsage" class="border p-3"></canvas> -->
+          </div>
         </div>
         <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
           <canvas id="minMemoryUsage" class="p-3"></canvas>
@@ -119,8 +123,10 @@
     </div>
     <div class="container-fluid mt-3">
       <div class="row">
-        <div id="currentStorageUsageDiv" class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <!-- <canvas id="currentStorageUsage" class="border p-3"></canvas> -->
+        <div class="col-sm d-flex justify-content-center">
+          <div id="currentStorageUsageDiv" style="height: 200px; width: 200px">
+            <!-- <canvas id="currentStorageUsage" class="border p-3"></canvas> -->
+          </div>
         </div>
         <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
           <canvas id="minStorageUsage" class="p-3"></canvas>
