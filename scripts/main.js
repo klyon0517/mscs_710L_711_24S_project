@@ -10,6 +10,16 @@
   
 */
 
+var minCpuLoad = 0;
+var hourCpuLoad = 0;
+var dayCpuLoad = 0;
+var minMemoryUsage = 0;
+var hourMemoryUsage = 0;
+var dayMemoryUsage = 0;
+var minStorageUsage = 0;
+var hourStorageUsage = 0;
+var dayStorageUsage = 0;
+
 window.addEventListener("load", function() {
   
   // Start a time date when page loads
@@ -145,223 +155,63 @@ async function getMetrics() {
   writeMetrics(data);
   
   
+  // These will need to be moved to their own function
+  // They do not need to be refreshed every 30 seconds
+    
   // Historical CPU 15 min
-  /* const ctx2 = document.getElementById('minCpuLoad');
-  
-  new Chart(ctx2, {
-    type: 'pie',
-    data: {
-      labels: [
-        '15 min avg. CPU Load'
-      ],
-      datasets: [{
-        label: 'Load%',
-        data: [35, 65],
-        backgroundColor: [
-          'rgba(255, 193, 7, 0.85)',
-          'rgba(185, 185, 185, 0.85)'
-        ],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+  let unusedMinCpuLoad = 100 - minCpuLoad;
+  document.getElementById('minCpuLoadDiv').innerHTML = '<canvas id="minCpuLoad" class="p-3"></canvas>';
+  const ctx2 = document.getElementById('minCpuLoad');
+  chartFormat(ctx2, "15 MIN AVG. CPU Load", minCpuLoad, unusedMinCpuLoad);
   
   // Historical CPU 1 hr
+  let unusedHourCpuLoad = 100 - hourCpuLoad;
+  document.getElementById('hourCpuLoadDiv').innerHTML = '<canvas id="hourCpuLoad" class="p-3"></canvas>';
   const ctx3 = document.getElementById('hourCpuLoad');
-  
-  new Chart(ctx3, {
-    type: 'pie',
-    data: {
-      labels: [
-        '1 hr avg. CPU Load'
-      ],
-      datasets: [{
-        label: 'Load%',
-        data: [15, 85],
-        backgroundColor: [
-          'rgba(25, 135, 84, 0.7)',
-          'rgba(185, 185, 185, 0.7)'
-        ],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+  chartFormat(ctx3, "1 HR AVG. CPU Load", hourCpuLoad, unusedHourCpuLoad);
   
   // Historical CPU 1 day
+  let unusedDayCpuLoad = 100 - dayCpuLoad;
+  document.getElementById('dayCpuLoadDiv').innerHTML = '<canvas id="dayCpuLoad" class="p-3"></canvas>';
   const ctx4 = document.getElementById('dayCpuLoad');
-  
-  new Chart(ctx4, {
-    type: 'pie',
-    data: {
-      labels: [
-        '1 day avg. CPU Load'
-      ],
-      datasets: [{
-        label: 'Load%',
-        data: [5, 95],
-        backgroundColor: [
-          'rgba(25, 135, 84, 0.55)',
-          'rgba(185, 185, 185, 0.55)'
-        ],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
-  
+  chartFormat(ctx4, "1 DAY AVG. CPU Load", dayCpuLoad, unusedDayCpuLoad);
   
   // Historical Memory 15 min
+  let unusedMinMemoryUsage = 100 - minMemoryUsage;
+  document.getElementById('minMemoryUsageDiv').innerHTML = '<canvas id="minMemoryUsage" class="p-3"></canvas>';
   const ctx6 = document.getElementById('minMemoryUsage');
-  
-  new Chart(ctx6, {
-    type: 'pie',
-    data: {
-      labels: [
-        '15 min avg. Memory Usage'
-      ],
-      datasets: [{
-        label: 'Usage%',
-        data: [65, 45],
-        backgroundColor: [
-          'rgba(253, 126, 20, 0.85)',
-          'rgba(185, 185, 185, 0.85)'
-        ],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+  chartFormat(ctx6, "15 MIN AVG. Memory Usage", minMemoryUsage, unusedMinMemoryUsage);
   
   // Historical Memory 1 hr
+  let unusedHourMemoryUsage = 100 - hourMemoryUsage;
+  document.getElementById('hourMemoryUsageDiv').innerHTML = '<canvas id="hourMemoryUsage" class="p-3"></canvas>';
   const ctx7 = document.getElementById('hourMemoryUsage');
-  
-  new Chart(ctx7, {
-    type: 'pie',
-    data: {
-      labels: [
-        '1 hr avg. Memory Usage'
-      ],
-      datasets: [{
-        label: 'Usage%',
-        data: [45, 55],
-        backgroundColor: [
-          'rgba(255, 193, 7, 0.7)',
-          'rgba(185, 185, 185, 0.7)'
-        ],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+  chartFormat(ctx7, "1 HR AVG. Memory Usage", hourMemoryUsage, unusedHourMemoryUsage);
   
   // Historical Memory 1 day
+  let unusedDayMemoryUsage = 100 - dayMemoryUsage;
+  document.getElementById('dayMemoryUsageDiv').innerHTML = '<canvas id="dayMemoryUsage" class="p-3"></canvas>';
   const ctx8 = document.getElementById('dayMemoryUsage');
-  
-  new Chart(ctx8, {
-    type: 'pie',
-    data: {
-      labels: [
-        '1 day avg. Memory Usage'
-      ],
-      datasets: [{
-        label: 'Usage%',
-        data: [15, 85],
-        backgroundColor: [
-          'rgba(25, 135, 84, 0.55)',
-          'rgba(185, 185, 185, 0.55)'
-        ],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+  chartFormat(ctx8, "1 DAY AVG. Memory Usage", dayMemoryUsage, unusedDayMemoryUsage);  
   
   // Historical Storage 15 min
+  let unusedMinStorageUsage = 100 - minStorageUsage;
+  document.getElementById('minStorageUsageDiv').innerHTML = '<canvas id="minStorageUsage" class="p-3"></canvas>';
   const ctx10 = document.getElementById('minStorageUsage');
-  
-  new Chart(ctx10, {
-    type: 'pie',
-    data: {
-      labels: [
-        '15 min avg. Storage Usage'
-      ],
-      datasets: [{
-        label: 'Usage%',
-        data: [15, 85],
-        backgroundColor: [
-          'rgba(25, 135, 84, 0.85)',
-          'rgba(185, 185, 185, 0.85)'
-        ],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+  chartFormat(ctx10, "15 MIN AVG. Storage Usage", minStorageUsage, unusedMinStorageUsage);
   
   // Historical Storage 1 hr
+  let unusedHourStorageUsage = 100 - hourStorageUsage;
+  document.getElementById('hourStorageUsageDiv').innerHTML = '<canvas id="hourStorageUsage" class="p-3"></canvas>';
   const ctx11 = document.getElementById('hourStorageUsage');
-  
-  new Chart(ctx11, {
-    type: 'pie',
-    data: {
-      labels: [
-        '1 hr avg. Storage Usage'
-      ],
-      datasets: [{
-        label: 'Usage%',
-        data: [40, 60],
-        backgroundColor: [
-          'rgba(255, 193, 7, 0.7)',
-          'rgba(185, 185, 185, 0.7)'
-        ],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  });
+  chartFormat(ctx11, "1 HR AVG. Storage Usage", hourStorageUsage, unusedHourStorageUsage);
   
   // Historical Storage 1 day
+  let unusedDayStorageUsage = 100 - dayStorageUsage;
+  document.getElementById('dayStorageUsageDiv').innerHTML = '<canvas id="dayStorageUsage" class="p-3"></canvas>';
   const ctx12 = document.getElementById('dayStorageUsage');
-  
-  new Chart(ctx12, {
-    type: 'pie',
-    data: {
-      labels: [
-        '1 day avg. Storage Usage'
-      ],
-      datasets: [{
-        label: 'Usage%',
-        data: [15, 85],
-        backgroundColor: [
-          'rgba(25, 135, 84, 0.55)',
-          'rgba(185, 185, 185, 0.55)'
-        ],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      responsive: true
-    }
-  }); */
-    
+  chartFormat(ctx12, "1 DAY AVG. Storage Usage", dayStorageUsage, unusedDayStorageUsage); 
+      
 };
 
 

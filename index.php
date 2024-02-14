@@ -88,54 +88,48 @@
     <div class="container-fluid mt-3">
       <div class="row">
         <div class="col-sm d-flex justify-content-center">
-          <div id="currentCpuLoadDiv" style="height: 200px; width: 200px">
-            <!-- <canvas id="currentCpuLoad" class="border p-3"></canvas> -->
-          </div>
+          <div id="currentCpuLoadDiv" style="height: 200px; width: 200px"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="minCpuLoad" class="p-3"></canvas>
+        <div class="col-sm d-flex justify-content-center">
+          <div id="minCpuLoadDiv" style="height: 200px; width: 200px"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="hourCpuLoad" class="p-3"></canvas>
+        <div class="col-sm d-flex justify-content-center">
+          <div id="hourCpuLoadDiv" style="height: 200px; width: 200px"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="dayCpuLoad" class="p-3"></canvas>
+        <div class="col-sm d-flex justify-content-center">
+          <div id="dayCpuLoadDiv" style="height: 200px; width: 200px"></div>
         </div>
       </div>    
     </div>
     <div class="container-fluid mt-3">
       <div class="row">
         <div class="col-sm d-flex justify-content-center">
-          <div id="currentMemoryUsageDiv" style="height: 200px; width: 200px">
-            <!-- <canvas id="currentMemoryUsage" class="border p-3"></canvas> -->
-          </div>
+          <div id="currentMemoryUsageDiv" style="height: 200px; width: 200px"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="minMemoryUsage" class="p-3"></canvas>
+        <div class="col-sm d-flex justify-content-center">
+          <div id="minMemoryUsageDiv" style="height: 200px; width: 200px"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="hourMemoryUsage" class="p-3"></canvas>
+        <div class="col-sm d-flex justify-content-center">
+          <div id="hourMemoryUsageDiv" style="height: 200px; width: 200px"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="dayMemoryUsage" class="p-3"></canvas>
+        <div class="col-sm d-flex justify-content-center">
+          <div id="dayMemoryUsageDiv" style="height: 200px; width: 200px"></div>
         </div>
       </div>    
     </div>
     <div class="container-fluid mt-3">
       <div class="row">
         <div class="col-sm d-flex justify-content-center">
-          <div id="currentStorageUsageDiv" style="height: 200px; width: 200px">
-            <!-- <canvas id="currentStorageUsage" class="border p-3"></canvas> -->
-          </div>
+          <div id="currentStorageUsageDiv" style="height: 200px; width: 200px"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="minStorageUsage" class="p-3"></canvas>
+        <div class="col-sm d-flex justify-content-center">
+          <div id="minStorageUsageDiv" style="height: 200px; width: 200px"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="hourStorageUsage" class="p-3"></canvas>
+        <div class="col-sm d-flex justify-content-center">
+          <div id="hourStorageUsageDiv" style="height: 200px; width: 200px"></div>
         </div>
-        <div class="col-sm d-flex justify-content-center" style="height: 200px; width: 200px">
-          <canvas id="dayStorageUsage" class="p-3"></canvas>
+        <div class="col-sm d-flex justify-content-center">
+          <div id="dayStorageUsageDiv" style="height: 200px; width: 200px"></div>
         </div>
       </div>    
     </div>

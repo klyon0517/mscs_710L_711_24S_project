@@ -9,12 +9,11 @@ Project features:
 - Chartjs
   √ - change color based on load
   √ - green, yellow, orange, red
-  - figure out how to close a chart in order to use it again
+  √ - figure out how to close a chart in order to use it again
 
 - setInterval
   - refreshing display
   √ - saving metrics to DB
-  - fix error when trying to reuse a canvas
 
 - Error handling
   - errors are not be logged in db or file
@@ -28,4 +27,4 @@ Project features:
 - Tests (PHP scripts)
   √ - DB connection
   √ - File write
-  - DB insert (using sample payload
+  - DB insert (using sample payload)
