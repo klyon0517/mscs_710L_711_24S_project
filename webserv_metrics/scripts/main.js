@@ -325,7 +325,7 @@ async function writeMetrics(data) {
       storage_free: dat13}))
   };
 
-  const response = await fetch("../api/post_phpsysinfo_json.php", options);
+  const response = await fetch("../../webserv_metrics/api/post_phpsysinfo_json.php", options);
   const jsonResponse = await response.json();
   
   console.log(jsonResponse.success);
