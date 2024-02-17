@@ -14,17 +14,12 @@
 
   date_default_timezone_set("America/New_York");
 
-  require __DIR__ . '/../vendor/autoload.php';
-  
-  use SecureEnvPHP\SecureEnvPHP;
-  (new SecureEnvPHP())->parse(__DIR__ . '/../.env.enc', __DIR__ . '/../.env.key');
-  
   try {
     
-    $mariadb_servername = getenv('mariadb_servername');
-    $mariadb_username = getenv('mariadb_username');
-    $mariadb_password = getenv('mariadb_password');
-    $mariadb_dbname= getenv('mariadb_dbname');
+    $mariadb_servername = "";
+    $mariadb_username = "";
+    $mariadb_password = "";
+    $mariadb_dbname= "metrics_project";
 
     $mariadb_conn = new PDO("mysql:host=$mariadb_servername;dbname=$mariadb_dbname", $mariadb_username, $mariadb_password);
       

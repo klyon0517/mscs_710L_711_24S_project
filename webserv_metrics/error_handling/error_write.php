@@ -18,7 +18,7 @@
   try {
       
     // Write the error to the database.            
-    require 'mariadb/mariadb_connection.php';
+    require 'mariadb_connection.php';
     
     $stmt = $mariadb_conn->prepare(
       "INSERT INTO error_log
