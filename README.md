@@ -7,7 +7,6 @@ Prerequisites:
   - MariaDB
   - PHP
   - phpsysinfo
-  - secure-env-php
   
 Installation:
   - download lastest release from Github repository

@@ -10,7 +10,7 @@
   
 */
 
-var minCpuLoad = 0;
+/* var minCpuLoad = 0;
 var hourCpuLoad = 0;
 var dayCpuLoad = 0;
 var minMemoryUsage = 0;
@@ -18,7 +18,7 @@ var hourMemoryUsage = 0;
 var dayMemoryUsage = 0;
 var minStorageUsage = 0;
 var hourStorageUsage = 0;
-var dayStorageUsage = 0;
+var dayStorageUsage = 0; */
 
 window.addEventListener("load", function() {
   
@@ -28,9 +28,13 @@ window.addEventListener("load", function() {
   // setTimeout / clearTimeout
   // use num as a counter for the varying intervals
   
+  // Run the first time
+  // Then continously every 30 secs after that
   getMetrics();
-  var temp = setInterval(getMetrics, 30000);
-  setTimeout(function( ) { clearInterval( temp ); }, 120000);
+  setInterval(getMetrics, 30000);
+  
+  // var temp = setInterval(getMetrics, 30000);
+  // setTimeout(function( ) { clearInterval( temp ); }, 120000);
 
 });
 
@@ -154,7 +158,7 @@ async function getMetrics() {
   
   writeMetrics(data);
   
-  
+  /* probably changing the charts to just numbers
   // These will need to be moved to their own function
   // They do not need to be refreshed every 30 seconds
     
@@ -211,6 +215,7 @@ async function getMetrics() {
   document.getElementById('dayStorageUsageDiv').innerHTML = '<canvas id="dayStorageUsage" class="p-3"></canvas>';
   const ctx12 = document.getElementById('dayStorageUsage');
   chartFormat(ctx12, "1 DAY AVG. Storage Usage", dayStorageUsage, unusedDayStorageUsage); 
+  */
       
 };
 
