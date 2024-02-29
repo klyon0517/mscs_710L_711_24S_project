@@ -31,6 +31,19 @@ CREATE TABLE `error_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+/*Table structure for table `fifteen_min_average` */
+
+DROP TABLE IF EXISTS `fifteen_min_average`;
+
+CREATE TABLE `fifteen_min_average` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `fifteen_min_cpu_avg` char(3) NOT NULL,
+  `fifteen_min_memory_avg` char(3) NOT NULL,
+  `fifteen_min_storage_avg` char(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
 /*Table structure for table `metrics` */
 
 DROP TABLE IF EXISTS `metrics`;
@@ -53,7 +66,33 @@ CREATE TABLE `metrics` (
   `storage_used` char(3) NOT NULL,
   `storage_free` char(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=268 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+/*Table structure for table `one_day_average` */
+
+DROP TABLE IF EXISTS `one_day_average`;
+
+CREATE TABLE `one_day_average` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `one_day_cpu_avg` char(3) NOT NULL,
+  `one_day_memory_avg` char(3) NOT NULL,
+  `one_day_storage_avg` char(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+/*Table structure for table `one_hour_average` */
+
+DROP TABLE IF EXISTS `one_hour_average`;
+
+CREATE TABLE `one_hour_average` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `one_hour_cpu_avg` char(3) NOT NULL,
+  `one_hour_memory_avg` char(3) NOT NULL,
+  `one_hour_storage_avg` char(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
