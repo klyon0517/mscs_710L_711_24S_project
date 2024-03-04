@@ -1,0 +1,154 @@
+<?php
+
+  /*  Metrics Project
+
+      * Software: Project
+      * Marist Class: MSCS_710L_711_24S
+      * Filename: get_one_day_avg_json.php
+      * Author: Kerry Lyon
+      * Created: March 3, 2024
+      * This file selects and averages 1 day of metrics data.
+      * It then saves to a table for future calculations and deletes the old data.
+      * Finally it returns the averages in json format.
+
+  */
+  
+  date_default_timezone_set("America/New_York");
+
+  try {
+        
+    require 'mariadb_connection.php';
+    
+    try {
+      
+      $stmt = $mariadb_conn->prepare(
+        "SELECT
+          one_hour_cpu_avg,
+          one_hour_memory_avg,
+          one_hour_storage_avg
+        FROM one_hour_average
+        WHERE date >= CONVERT_TZ(NOW(), '+00:00', '-05:00') - INTERVAL 1 DAY");
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      
+      if(!empty($result)) {
+        
+        $num = count($result);
+        $cpu_load_total = 0;
+        $memory_load_total = 0;
+        $storage_used_total = 0;
+        
+        foreach($result as $row) {
+        
+          $cpu_load_total += $row['one_hour_cpu_avg'];
+          $memory_load_total += $row['one_hour_memory_avg'];
+          $storage_used_total += $row['one_hour_storage_avg'];
+      
+        }
+        
+        $cpu_load_avg = round($cpu_load_total / $num);
+        $memory_load_avg = round($memory_load_total / $num);
+        $storage_used_avg = round($storage_used_total / $num);
+        
+        try {
+      
+          $date = date("Y-m-d H:i:s");
+        
+          $stmt = $mariadb_conn->prepare(
+            "INSERT INTO one_day_average
+              (date,
+              one_day_cpu_avg,
+              one_day_memory_avg,
+              one_day_storage_avg)
+            VALUES
+              (:date,
+              :one_day_cpu_avg,
+              :one_day_memory_avg,
+              :one_day_storage_avg)");
+          $stmt->bindParam("date", $date, PDO::PARAM_STR);
+          $stmt->bindParam("one_day_cpu_avg", $cpu_load_avg, PDO::PARAM_STR);
+          $stmt->bindParam("one_day_memory_avg", $memory_load_avg, PDO::PARAM_STR);
+          $stmt->bindParam("one_day_storage_avg", $storage_used_avg, PDO::PARAM_STR);
+          $stmt->execute();
+          
+        } catch (PDOException $mariadbErr) {
+          
+          $errDate = date("Y-m-d H:i:s");
+          $error_type = "MariaDB";
+          $method = "INSERT";
+          $file = "get_one_day_avg_json";
+          $message = "Unable to insert the 1 day metrics averages into the one_day_average table.";
+          $error = $e->mariadbErr();
+          $file_pointer = "../logs/mariadb_error.log";
+        
+          require '../error/error_write.php';  
+          
+        }
+        
+      } else {
+        
+        $cpu_load_avg = "0";
+        $memory_load_avg = "0";
+        $storage_used_avg = "0";
+        
+      }
+      
+    } catch (PDOException $mariadbErr) {
+      
+      $errDate = date("Y-m-d H:i:s");
+      $error_type = "MariaDB";
+      $method = "SELECT";
+      $file = "get_one_day_avg_json";
+      $message = "Unable to select 1 days worth of metrics from the one_hour_average table.";
+      $error = $e->mariadbErr();
+      $file_pointer = "../logs/mariadb_error.log";
+    
+      require '../error/error_write.php';  
+      
+    }
+    
+    try {
+    
+      $stmt = $mariadb_conn->prepare(
+        "DELETE FROM one_hour_average
+        WHERE date >= CONVERT_TZ(NOW(), '+00:00', '-05:00') - INTERVAL 1 DAY");
+      $stmt->execute();
+      
+    } catch (PDOException $mariadbErr) {
+          
+      $errDate = date("Y-m-d H:i:s");
+      $error_type = "MariaDB";
+      $method = "DELETE";
+      $file = "get_one_day_avg_json";
+      $message = "Unable to delete the metrics from the one_hour_average table.";
+      $error = $e->mariadbErr();
+      $file_pointer = "../logs/mariadb_error.log";
+    
+      require '../error/error_write.php';  
+      
+    }
+    
+    $one_day_avg = array(
+      "one_day_cpu_avg" => $cpu_load_avg,
+      "one_day_memory_avg" => $memory_load_avg,
+      "one_day_storage_avg" => $storage_used_avg);
+
+    echo json_encode($one_day_avg);
+      
+    $mariadb_conn = null;
+    
+  } catch (Exception $e) {
+    
+    $errDate = date("Y-m-d H:i:s");
+    $error_type = "GET";
+    $method = "averages";
+    $file = "get_one_day_avg_json";
+    $message = "Failed to average 1 day of metrics data.";
+    $error = $e->getMessage();
+    $file_pointer = "../logs/php_error.log";
+    
+    require '../error/error_write.php';  
+    
+  }
+
+?>

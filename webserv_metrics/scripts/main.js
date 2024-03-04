@@ -10,41 +10,22 @@
   
 */
 
-/* var minCpuLoad = 0;
-var hourCpuLoad = 0;
-var dayCpuLoad = 0;
-var minMemoryUsage = 0;
-var hourMemoryUsage = 0;
-var dayMemoryUsage = 0;
-var minStorageUsage = 0;
-var hourStorageUsage = 0;
-var dayStorageUsage = 0; */
-
 window.addEventListener("load", function() {
-  
-  // Start a time date when page loads
-  // run script every 15 secons for first hour
-  // then less and less as time goes on
-  // setTimeout / clearTimeout
-  // use num as a counter for the varying intervals
   
   // Run the first time
   // Then continously every 30 secs after that
   getMetrics();
+  getFifteenMinAvg();
+  getOneHourAvg();
+  getOneDayAvg()
   setInterval(getMetrics, 30000);
+  setInterval(getFifteenMinAvg, 900000);
+  setInterval(getOneHourAvg, 3600000);
+  setInterval(getOneDayAvg, 86400000);
   
-  // var temp = setInterval(getMetrics, 30000);
-  // setTimeout(function( ) { clearInterval( temp ); }, 120000);
-
 });
 
-// var num = 0;
 
-/* for (num; num < 4; num++) {
-  
-  setTimeout(getMetrics, 15000);
-  
-} */
 
 /*  getMetrics
 *
@@ -158,65 +139,6 @@ async function getMetrics() {
   
   writeMetrics(data);
   
-  /* probably changing the charts to just numbers
-  // These will need to be moved to their own function
-  // They do not need to be refreshed every 30 seconds
-    
-  // Historical CPU 15 min
-  let unusedMinCpuLoad = 100 - minCpuLoad;
-  document.getElementById('minCpuLoadDiv').innerHTML = '<canvas id="minCpuLoad" class="p-3"></canvas>';
-  const ctx2 = document.getElementById('minCpuLoad');
-  chartFormat(ctx2, "15 MIN AVG. CPU Load", minCpuLoad, unusedMinCpuLoad);
-  
-  // Historical CPU 1 hr
-  let unusedHourCpuLoad = 100 - hourCpuLoad;
-  document.getElementById('hourCpuLoadDiv').innerHTML = '<canvas id="hourCpuLoad" class="p-3"></canvas>';
-  const ctx3 = document.getElementById('hourCpuLoad');
-  chartFormat(ctx3, "1 HR AVG. CPU Load", hourCpuLoad, unusedHourCpuLoad);
-  
-  // Historical CPU 1 day
-  let unusedDayCpuLoad = 100 - dayCpuLoad;
-  document.getElementById('dayCpuLoadDiv').innerHTML = '<canvas id="dayCpuLoad" class="p-3"></canvas>';
-  const ctx4 = document.getElementById('dayCpuLoad');
-  chartFormat(ctx4, "1 DAY AVG. CPU Load", dayCpuLoad, unusedDayCpuLoad);
-  
-  // Historical Memory 15 min
-  let unusedMinMemoryUsage = 100 - minMemoryUsage;
-  document.getElementById('minMemoryUsageDiv').innerHTML = '<canvas id="minMemoryUsage" class="p-3"></canvas>';
-  const ctx6 = document.getElementById('minMemoryUsage');
-  chartFormat(ctx6, "15 MIN AVG. Memory Usage", minMemoryUsage, unusedMinMemoryUsage);
-  
-  // Historical Memory 1 hr
-  let unusedHourMemoryUsage = 100 - hourMemoryUsage;
-  document.getElementById('hourMemoryUsageDiv').innerHTML = '<canvas id="hourMemoryUsage" class="p-3"></canvas>';
-  const ctx7 = document.getElementById('hourMemoryUsage');
-  chartFormat(ctx7, "1 HR AVG. Memory Usage", hourMemoryUsage, unusedHourMemoryUsage);
-  
-  // Historical Memory 1 day
-  let unusedDayMemoryUsage = 100 - dayMemoryUsage;
-  document.getElementById('dayMemoryUsageDiv').innerHTML = '<canvas id="dayMemoryUsage" class="p-3"></canvas>';
-  const ctx8 = document.getElementById('dayMemoryUsage');
-  chartFormat(ctx8, "1 DAY AVG. Memory Usage", dayMemoryUsage, unusedDayMemoryUsage);  
-  
-  // Historical Storage 15 min
-  let unusedMinStorageUsage = 100 - minStorageUsage;
-  document.getElementById('minStorageUsageDiv').innerHTML = '<canvas id="minStorageUsage" class="p-3"></canvas>';
-  const ctx10 = document.getElementById('minStorageUsage');
-  chartFormat(ctx10, "15 MIN AVG. Storage Usage", minStorageUsage, unusedMinStorageUsage);
-  
-  // Historical Storage 1 hr
-  let unusedHourStorageUsage = 100 - hourStorageUsage;
-  document.getElementById('hourStorageUsageDiv').innerHTML = '<canvas id="hourStorageUsage" class="p-3"></canvas>';
-  const ctx11 = document.getElementById('hourStorageUsage');
-  chartFormat(ctx11, "1 HR AVG. Storage Usage", hourStorageUsage, unusedHourStorageUsage);
-  
-  // Historical Storage 1 day
-  let unusedDayStorageUsage = 100 - dayStorageUsage;
-  document.getElementById('dayStorageUsageDiv').innerHTML = '<canvas id="dayStorageUsage" class="p-3"></canvas>';
-  const ctx12 = document.getElementById('dayStorageUsage');
-  chartFormat(ctx12, "1 DAY AVG. Storage Usage", dayStorageUsage, unusedDayStorageUsage); 
-  */
-      
 };
 
 
@@ -335,4 +257,131 @@ async function writeMetrics(data) {
   
   console.log(jsonResponse.success);
     
+}
+
+
+
+/*  getFifteenMinAvg
+*
+*   Queries the average metrics every 15 minutes
+*
+*   parameters:
+*       none
+*  
+*   return value: json response
+*
+*/
+async function getFifteenMinAvg() {
+  
+  const response = await fetch("../../webserv_metrics/api/get_fifteen_min_avg_json.php");
+  const fifteenAverage = await response.json();
+  
+  var minCpuLoad = fifteenAverage.fifteen_min_cpu_avg;
+  var minMemoryUsage = fifteenAverage.fifteen_min_memory_avg;
+  var minStorageUsage = fifteenAverage.fifteen_min_storage_avg;
+  
+  // Historical CPU 15 min
+  let unusedMinCpuLoad = 100 - minCpuLoad;
+  document.getElementById('minCpuLoadDiv').innerHTML = '<canvas id="minCpuLoad" class="p-3"></canvas>';
+  const ctx2 = document.getElementById('minCpuLoad');
+  chartFormat(ctx2, "15 MIN AVG. CPU Load", minCpuLoad, unusedMinCpuLoad);
+  
+  // Historical Memory 15 min
+  let unusedMinMemoryUsage = 100 - minMemoryUsage;
+  document.getElementById('minMemoryUsageDiv').innerHTML = '<canvas id="minMemoryUsage" class="p-3"></canvas>';
+  const ctx6 = document.getElementById('minMemoryUsage');
+  chartFormat(ctx6, "15 MIN AVG. Memory Usage", minMemoryUsage, unusedMinMemoryUsage);
+  
+  // Historical Storage 15 min
+  let unusedMinStorageUsage = 100 - minStorageUsage;
+  document.getElementById('minStorageUsageDiv').innerHTML = '<canvas id="minStorageUsage" class="p-3"></canvas>';
+  const ctx10 = document.getElementById('minStorageUsage');
+  chartFormat(ctx10, "15 MIN AVG. Storage Usage", minStorageUsage, unusedMinStorageUsage);
+  
+}
+
+
+
+/*  getOneHourAvg
+*
+*   Queries the average metrics every 1 hour
+*
+*   parameters:
+*       none
+*  
+*   return value: json response
+*
+*/
+async function getOneHourAvg() {
+  
+  const response = await fetch("../../webserv_metrics/api/get_one_hour_avg_json.php");
+  const hourAverage = await response.json();
+  
+  var hourCpuLoad = hourAverage.one_hour_cpu_avg;
+  var hourMemoryUsage = hourAverage.one_hour_memory_avg;
+  var hourStorageUsage = hourAverage.one_hour_storage_avg;
+  
+  // Historical CPU 1 hr
+  let unusedHourCpuLoad = 100 - hourCpuLoad;
+  document.getElementById('hourCpuLoadDiv').innerHTML = '<canvas id="hourCpuLoad" class="p-3"></canvas>';
+  const ctx3 = document.getElementById('hourCpuLoad');
+  chartFormat(ctx3, "1 HR AVG. CPU Load", hourCpuLoad, unusedHourCpuLoad);
+  
+  // Historical Memory 1 hr
+  let unusedHourMemoryUsage = 100 - hourMemoryUsage;
+  document.getElementById('hourMemoryUsageDiv').innerHTML = '<canvas id="hourMemoryUsage" class="p-3"></canvas>';
+  const ctx7 = document.getElementById('hourMemoryUsage');
+  chartFormat(ctx7, "1 HR AVG. Memory Usage", hourMemoryUsage, unusedHourMemoryUsage);
+  
+  // Historical Storage 1 hr
+  let unusedHourStorageUsage = 100 - hourStorageUsage;
+  document.getElementById('hourStorageUsageDiv').innerHTML = '<canvas id="hourStorageUsage" class="p-3"></canvas>';
+  const ctx11 = document.getElementById('hourStorageUsage');
+  chartFormat(ctx11, "1 HR AVG. Storage Usage", hourStorageUsage, unusedHourStorageUsage);
+  
+}
+
+
+
+/*  getOneDayAvg
+*
+*   Queries the average metrics every 1 day
+*
+*   parameters:
+*       none
+*  
+*   return value: json response
+*
+*/
+async function getOneDayAvg() {
+  
+  const response = await fetch("../../webserv_metrics/api/get_one_day_avg_json.php");
+  const dayAverage = await response.json();
+  
+  var dayCpuLoad = dayAverage.one_day_cpu_avg;
+  var dayMemoryUsage = dayAverage.one_day_memory_avg;
+  var dayStorageUsage = dayAverage.one_day_storage_avg;
+  
+  console.log(dayCpuLoad);
+  console.log(dayMemoryUsage);
+  console.log(dayStorageUsage);
+  
+  // Historical CPU 1 day
+  let unusedDayCpuLoad = 100 - dayCpuLoad;
+  document.getElementById('dayCpuLoadDiv').innerHTML = '<canvas id="dayCpuLoad" class="p-3"></canvas>';
+  const ctx4 = document.getElementById('dayCpuLoad');
+  chartFormat(ctx4, "1 DAY AVG. CPU Load", dayCpuLoad, unusedDayCpuLoad);
+  
+  // Historical Memory 1 day
+  let unusedDayMemoryUsage = 100 - dayMemoryUsage;
+  document.getElementById('dayMemoryUsageDiv').innerHTML = '<canvas id="dayMemoryUsage" class="p-3"></canvas>';
+  const ctx8 = document.getElementById('dayMemoryUsage');
+  chartFormat(ctx8, "1 DAY AVG. Memory Usage", dayMemoryUsage, unusedDayMemoryUsage);  
+      
+  // Historical Storage 1 day
+  let unusedDayStorageUsage = 100 - dayStorageUsage;
+  document.getElementById('dayStorageUsageDiv').innerHTML = '<canvas id="dayStorageUsage" class="p-3"></canvas>';
+  const ctx12 = document.getElementById('dayStorageUsage');
+  chartFormat(ctx12, "1 DAY AVG. Storage Usage", dayStorageUsage, unusedDayStorageUsage);
+  
 }

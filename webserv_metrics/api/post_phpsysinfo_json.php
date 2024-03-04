@@ -94,7 +94,7 @@
       $error_type = "MariaDB";
       $method = "INSERT";
       $file = "post_phpsysinfo_json";
-      $message = "Unable to insert system metrics into the databse.";
+      $message = "Unable to insert system metrics into the metrics table.";
       $error = $e->mariadbErr();
       $file_pointer = "../logs/mariadb_error.log";
     
