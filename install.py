@@ -3,6 +3,7 @@
 import os
 import shutil
 import getpass
+import subprocess
 
 # Check if prerequisites are downloaded
 prerequisites_downloaded = input("Have you downloaded the prerequisites (phpsysinfo, web server, MariaDB, PHP)? (y/n): ")
@@ -64,5 +65,14 @@ with open(mariadb_connection_path, 'w') as f:
         elif '$mariadb_password =' in line:
             line = f"$mariadb_password = '{mariadb_password}';\n"
         f.write(line)
+
+# Create the metrics_project database and import the SQL file
+try:
+    subprocess.run(['mysql', '-h', mariadb_servername, '-u', mariadb_username, '-p' + mariadb_password, '-e', 'CREATE DATABASE IF NOT EXISTS metrics_project'])
+    subprocess.run(['mysql', '-h', mariadb_servername, '-u', mariadb_username, '-p' + mariadb_password, 'metrics_project', '-e', 'source metrics_db_sql_import.sql'])
+    print("Database created and SQL file imported successfully.")
+except subprocess.CalledProcessError as e:
+    print("Error:", e)
+    exit()
 
 print("Setup complete.")
