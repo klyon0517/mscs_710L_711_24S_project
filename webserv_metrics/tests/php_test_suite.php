@@ -17,11 +17,12 @@
   
   echo "-----Testing POST API-----\n";
   echo "Filename: post_phpsysinfo_json.php\n";
-  echo "Insert test data info 'metrics' table.\n";
-  require 'insert_metrics_data_test.php';
-  // need to work out how to pass parameters
-  // from here to file_get_contents
-  // require '../api/post_phpsysinfo_json.php';
+  echo "Sample metrics data:\n";
+  require 'metrics_data_test.php';
+  echo $metrics_test_data . "\n";
+  echo "Executing the API\n";
+  echo "Returned payload: ";
+  require '../api/post_phpsysinfo_json.php';
   echo "\n\n";
   
   echo "-----Testing GET FIFTEEN MIN AVG API-----\n";
