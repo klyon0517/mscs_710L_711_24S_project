@@ -81,7 +81,8 @@
           $error = $e->mariadbErr();
           $file_pointer = "../logs/mariadb_error.log";
         
-          require '../error/error_write.php';  
+          require '../error/error_write.php';
+          echo "Failed. Error message: " . $message;
           
         }
         
@@ -103,7 +104,8 @@
       $error = $e->mariadbErr();
       $file_pointer = "../logs/mariadb_error.log";
     
-      require '../error/error_write.php';  
+      require '../error/error_write.php';
+      echo "Failed. Error message: " . $message;
       
     }
     
@@ -124,7 +126,8 @@
       $error = $e->mariadbErr();
       $file_pointer = "../logs/mariadb_error.log";
     
-      require '../error/error_write.php';  
+      require '../error/error_write.php';
+      echo "Failed. Error message: " . $message;
       
     }
     
@@ -147,7 +150,8 @@
     $error = $e->getMessage();
     $file_pointer = "../logs/php_error.log";
     
-    require '../error/error_write.php';  
+    require '../error/error_write.php';
+    echo "Failed. Error message: " . $message;
     
   }
 
