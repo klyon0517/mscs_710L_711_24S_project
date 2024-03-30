@@ -15,7 +15,17 @@
   
   try {
     
-    $json = json_decode(urldecode(file_get_contents("php://input")), true);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      
+      $json = json_decode(urldecode(file_get_contents("php://input")), true);
+    
+    } else {
+    
+      require '../tests/metrics_data_test.php';
+      $json = json_decode($metrics_test_data, true);
+    
+    }
+    
     $hostname = $json['hostname'];
     $distro = $json['distro'];
     $kernal = $json['kernal'];
