@@ -44,7 +44,7 @@
       $stmt->bindParam("date", $date, PDO::PARAM_STR);
       $stmt->execute();
       
-      echo "INSERT successful\n";
+      echo "INSERT successful.";
       
       $mariadb_conn = null;
       
@@ -59,7 +59,7 @@
       $file_pointer = "../logs/mariadb_error.log";
     
       require '../error/error_write.php';
-      echo "Failed. Error message: " . $error . "\n";
+      echo "Failed. Error message: " . $message;
       
     }
 

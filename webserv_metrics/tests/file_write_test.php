@@ -3,7 +3,7 @@
   date_default_timezone_set("America/New_York");
   
   $txt =  "Date: " . date("Y-m-d H:i:s") . "\n\n";
-  $file_pointer = "tests/file_write_test.log";
+  $file_pointer = "file_write_test.log";
   
   try {
     

@@ -99,7 +99,7 @@
       $file_pointer = "../logs/mariadb_error.log";
     
       require '../error/error_write.php';
-      echo "Failed. Error message: " . $error . "\n\n";
+      echo "Failed. Error message: " . $message;
       
     }
     
@@ -117,7 +117,7 @@
     $file_pointer = "../logs/php_error.log";
     
     require '../error/error_write.php';
-    echo "Failed. Error message: " . $error . "\n\n";
+    echo "Failed. Error message: " . $message;
     
   }
 
