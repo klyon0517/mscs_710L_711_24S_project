@@ -9,14 +9,14 @@ Prerequisites:
   - phpsysinfo
   
 Installation:
-  - download lastest release from Github repository
-    - [mscs_710L_711_24S_project](https://github.com/klyon0517/mscs_710L_711_24S_project)
-  - place in web root directory
-    - IIS "wwwroot"
-    - Apache "htdocs"
-    - Nginx "?"
-  - import sql file 
-  - view website at [Project](http://3.135.19.80/)
+  - download lastest release from Github releases page
+    - [mscs_710L_711_24S_project](https://github.com/klyon0517/mscs_710L_711_24S_project/releases)
+  - run 'install.py' from the console
+  - The 'webserv_metrics' will be placed in the correct directory
+  - Follow the prompts for MariaDB information
+  - The database SQL will be imported
+  - view the WebServ site in the browser:
+    - [http://localhost/webserv_metrics/webserv.php](http://localhost/webserv_metrics/webserv.php)
     
 Included Dependencies:
   - Bootstrap
