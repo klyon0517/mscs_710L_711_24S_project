@@ -16,9 +16,9 @@
 
   try {
     
-    $mariadb_servername = "";
-    $mariadb_username = "";
-    $mariadb_password = "";
+$mariadb_servername = 'localhost';
+$mariadb_username = 'rreyes';
+$mariadb_password = 'jerr1426';
     $mariadb_dbname= "metrics_project";
 
     $mariadb_conn = new PDO("mysql:host=$mariadb_servername;dbname=$mariadb_dbname", $mariadb_username, $mariadb_password);
@@ -64,5 +64,3 @@
     }
     
   }
-
-?>
