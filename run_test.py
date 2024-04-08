@@ -3,6 +3,11 @@
 import os
 import mysql.connector
 import getpass
+import subprocess
+import logging
+
+# Configure logging
+logging.basicConfig(filename='output_file.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 ## Testing Build: webserv_metrics folder ##
 def test_webserv_metrics(web_server):
@@ -14,59 +19,64 @@ def test_webserv_metrics(web_server):
     elif web_server == 'IIS':
         web_root = 'C:/inetpub/wwwroot'
     else:
-        print("Unsupported web server.")
-        exit()
+        logging.error("Unsupported web server.")
+        exit(1)
 
     # Check if webserv_metrics folder exists in the web root directory
     if not os.path.exists(os.path.join(web_root, 'webserv_metrics')):
-        print("webserv_metrics folder not found in the web root directory.")
-        exit()
+        logging.error("webserv_metrics folder not found in the web root directory.")
+        exit(1)
 
-    print("webserv_metrics folder found in the web root directory.")
+    logging.info("webserv_metrics folder found in the web root directory.")
 
 ## Testing Prerequisite and Build: Web Server ##
 def test_webserver():
-    print("Checking webserver")
+    logging.info("Checking webserver")
     if os.name == 'posix':  # Mac
         web_root_apache = '/Library/WebServer/Documents'
         web_root_nginx = '/usr/share/nginx/html'
         if os.path.exists(web_root_apache):
-            print("Apache web server installed.")
+            logging.info("Apache web server installed.")
             web_server = 'Apache'
         elif os.path.exists(web_root_nginx):
-            print("Nginx web server installed.")
+            logging.info("Nginx web server installed.")
             web_server = 'Nginx'
         else:
-            web_server = None
+            logging.error("Web server not found.")
+            exit(1)
     elif os.name == 'nt':  # Windows
         web_root_apache = 'C:/Apache24/htdocs'
         web_root_nginx = 'C:/nginx/html'
         web_root_iis = 'C:/inetpub/wwwroot'
         if os.path.exists(web_root_apache):
-            print("Apache web server installed.")
+            logging.info("Apache web server installed.")
             web_server = 'Apache'
         elif os.path.exists(web_root_nginx):
-            print("Nginx web server installed.")
+            logging.info("Nginx web server installed.")
             web_server = 'Nginx'
         elif os.path.exists(web_root_iis):
-            print("IIS web server installed.")
+            logging.info("IIS web server installed.")
             web_server = 'IIS'
         else:
-            web_server = None
+            logging.error("Web server not found.")
+            exit(1)
     else:
-        print("Unsupported OS.")
-        exit()
-
-    if not web_server:
-        print("Web server not found.")
-        exit()
+        logging.error("Unsupported OS.")
+        exit(1)
 
     # Test webserv_metrics folder existence
     test_webserv_metrics(web_server)
 
-## Testing Prerequisite: phpsysinfo ##
-
 ## Testing Prerequisite: PHP ##
+def test_php():
+    try:
+        output = subprocess.check_output(['php', '-v'], stderr=subprocess.STDOUT, text=True)
+        if 'PHP' in output:
+            logging.info("PHP is installed.")
+        else:
+            raise Exception("PHP not installed.")
+    except subprocess.CalledProcessError as e:
+        raise Exception("PHP not installed.")
 
 ## Testing Prerequisite: MariaDB ##
 def test_mariadb_connection(host, user, password, database):
@@ -77,12 +87,10 @@ def test_mariadb_connection(host, user, password, database):
             password=password,
             database=database
         )
-        print("MariaDB connection successful!")
+        logging.info("MariaDB connection successful!")
         conn.close()
-        return True
     except mysql.connector.Error as e:
-        print(f"Error connecting to MariaDB: {e}")
-        return False
+        raise Exception(f"Error connecting to MariaDB: {e}")
 
 mariadb_host = input("Enter MariaDB server name (default is localhost): ")
 if not mariadb_host:
@@ -91,5 +99,14 @@ if not mariadb_host:
 mariadb_username = input("Enter MariaDB username: ")
 mariadb_password = getpass.getpass("Enter MariaDB password: ")
 mariadb_database = 'metrics_project'
-test_webserver()
-test_mariadb_connection(mariadb_host, mariadb_username, mariadb_password, mariadb_database)
+
+try:
+    test_webserver()
+    test_php()
+    test_mariadb_connection(mariadb_host, mariadb_username, mariadb_password, mariadb_database)
+    print("All tests passed.")
+    logging.info("All tests passed.")
+except Exception as e:
+    print(f"Test failed: {e}")
+    logging.error(f"Test failed: {e}")
+    exit(1)
