@@ -21,7 +21,7 @@
       fwrite($test_file, $txt);
       fclose($test_file);
       
-      $file_info = "Success. File 'file_write_test.log' created in tests directory.\n\n";
+      $file_info = "Success. File 'file_write_test.log' created in tests directory.";
       
     }
     
@@ -30,7 +30,7 @@
   } catch (Exception $e) {
     
     $error = $e->getMessage();
-    echo "Failed. Error message: " . $error . "\n\n";
+    echo "Failed. Error message: " . $error;
     
   }
   

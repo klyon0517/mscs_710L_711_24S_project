@@ -1,0 +1,6 @@
+2024-04-11 18:44:32,741 - INFO - Checking webserver
+2024-04-11 18:44:32,741 - INFO - IIS web server installed.
+2024-04-11 18:44:32,741 - INFO - webserv_metrics folder found in the web root directory.
+2024-04-11 18:44:36,038 - INFO - PHP is installed.
+2024-04-11 18:44:36,241 - INFO - MariaDB connection successful!
+2024-04-11 18:44:36,251 - INFO - All tests passed.

@@ -11,9 +11,11 @@
         
   echo "-----Testing metrics_project database connection-----\n";  
   require 'connection_test.php';
+  echo "\n\n";
   
   echo "-----Testing file write-----\n";
   require 'file_write_test.php';
+  echo "\n\n";
   
   echo "-----Testing POST API-----\n";
   echo "Filename: post_phpsysinfo_json.php\n";
