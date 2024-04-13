@@ -1,0 +1,6 @@
+2024-04-13 14:29:49,070 - INFO - Checking webserver
+2024-04-13 14:29:49,072 - INFO - Apache web server installed.
+2024-04-13 14:29:49,072 - INFO - webserv_metrics folder found in the web root directory.
+2024-04-13 14:29:49,169 - INFO - PHP is installed.
+2024-04-13 14:29:49,190 - INFO - MariaDB connection successful!
+2024-04-13 14:29:49,273 - INFO - All tests passed.

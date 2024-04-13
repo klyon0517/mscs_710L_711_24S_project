@@ -107,7 +107,7 @@ try:
     test_mariadb_connection(mariadb_host, mariadb_username, mariadb_password, mariadb_database)
 
     # Run PHP test script
-    subprocess.run(['php', 'webserv_metrics/tests/php_test_suite.php'])
+    subprocess.run(['php', 'php_test_suite.php'])
 
     print("All tests passed.")
     logging.info("All tests passed.")
