@@ -5,6 +5,7 @@ import mysql.connector
 import getpass
 import subprocess
 import logging
+import sys
 
 # Configure logging
 logging.basicConfig(filename='output_file.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -25,7 +26,7 @@ def test_webserv_metrics(web_server):
     # Check if webserv_metrics folder exists in the web root directory
     if not os.path.exists(os.path.join(web_root, 'webserv_metrics')):
         logging.error("webserv_metrics folder not found in the web root directory.")
-        exit(1)
+        sys.exit(1)
 
     logging.info("webserv_metrics folder found in the web root directory.")
 
@@ -43,7 +44,7 @@ def test_webserver():
             web_server = 'Nginx'
         else:
             logging.error("Web server not found.")
-            exit(1)
+            sys.exit(1)
     elif os.name == 'nt':  # Windows
         web_root_apache = 'C:/Apache24/htdocs'
         web_root_nginx = 'C:/nginx/html'
@@ -59,10 +60,10 @@ def test_webserver():
             web_server = 'IIS'
         else:
             logging.error("Web server not found.")
-            exit(1)
+            sys.exit(1)
     else:
         logging.error("Unsupported OS.")
-        exit(1)
+        sys.exit(1)
 
     # Test webserv_metrics folder existence
     test_webserv_metrics(web_server)
@@ -104,9 +105,13 @@ try:
     test_webserver()
     test_php()
     test_mariadb_connection(mariadb_host, mariadb_username, mariadb_password, mariadb_database)
+
+    # Run PHP test script
+    subprocess.run(['php', 'webserv_metrics/tests/php_test_suite.php'])
+
     print("All tests passed.")
     logging.info("All tests passed.")
 except Exception as e:
     print(f"Test failed: {e}")
     logging.error(f"Test failed: {e}")
-    exit(1)
+    sys.exit(1)
