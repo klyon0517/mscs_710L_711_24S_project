@@ -15,7 +15,7 @@
   
   try {
     
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_SERVER['REQUEST_METHOD']) === 'POST') {
       
       $json = json_decode(urldecode(file_get_contents("php://input")), true);
     

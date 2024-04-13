@@ -1,5 +1,17 @@
 <?php
 
+ /*  Metrics Project
+
+      * Software: Project
+      * Marist Class: MSCS_710L_711_24S
+      * Filename: php_test_suite.php
+      * Author: Kerry Lyon
+      * Created: March 30, 2024
+      * This file automates and logs to console the testing of the
+      * database connection, file write permission, and APIs.
+
+  */
+
   echo "\n-----PHP TEST SUITE-----
         This script automates the testing of the following:
         -- database connection

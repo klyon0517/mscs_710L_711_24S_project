@@ -1,5 +1,16 @@
 <?php
 
+ /*  Metrics Project
+
+      * Software: Project
+      * Marist Class: MSCS_710L_711_24S
+      * Filename: metrics_data_test.php
+      * Author: Kerry Lyon
+      * Created: March 30, 2024
+      * This file contains the test json payload.
+
+  */
+
   $metrics_test_arr = array(
     "hostname"=>"EC2AMAZ-1HQHP5U",
     "distro"=>"Microsoft Windows Server 2022 Datacenter",

@@ -1,5 +1,16 @@
 <?php
 
+ /*  Metrics Project
+
+      * Software: Project
+      * Marist Class: MSCS_710L_711_24S
+      * Filename: file_write_test.php
+      * Author: Kerry Lyon
+      * Created: March 30, 2024
+      * This file checks if write permissions are allowed.
+
+  */
+
   date_default_timezone_set("America/New_York");
   
   $txt =  "Date: " . date("Y-m-d H:i:s") . "\n\n";
@@ -13,7 +24,7 @@
       fwrite($test_file, $txt);
       fclose($test_file);
       
-      $file_info = "Success. File 'file_write_test.log' exists in tests directory.\n\n";
+      $file_info = "Success. File 'file_write_test.log' exists in tests directory.";
       
     } else {
       
